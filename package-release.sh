@@ -48,7 +48,7 @@ while [ $# -gt 0 ]; do
 done
 
 function build_arch {
-  export WINEARCH="win$1"
+  export WINEARCH="win$2"
   export WINEPREFIX="$DXVK_BUILD_DIR/wine.$1"
   
   cd "$DXVK_SRC_DIR"
@@ -83,8 +83,9 @@ function package {
   rm -R "dxvk-$DXVK_VERSION"
 }
 
-build_arch 64
-build_arch 32
+build_arch 64 64
+build_arch 32 32
+build_arch arm64ec 64
 
 if [ $opt_nopackage -eq 0 ]; then
   package
